@@ -1,0 +1,27 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+   - docker build -t sentinelwawesh/react-test -f ./client/Dockerfile.dev ./client
+   
+
+script:
+  - docker run -e CI=true sentinelwawesh/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t sentinelwawesh/multi-client ./client
+  - docker build -t sentinelwawesh/multi-nginx ./nginx
+  - docker build -t sentinelwawesh/multi-server ./server
+  - docker build -t sentinelwawesh/multi-worker ./worker
+  #login into the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  # take the images and push them to hub
+  - docker push entinelwawesh/multi-client
+  - docker push entinelwawesh/multi-nginx
+  - docker push entinelwawesh/multi-server
+  - docker push entinelwawesh/multi-worker
+  
+  
+
