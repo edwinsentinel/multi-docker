@@ -18,10 +18,10 @@ after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
   # take the images and push them to hub
-  - docker push entinelwawesh/multi-client
-  - docker push entinelwawesh/multi-nginx
-  - docker push entinelwawesh/multi-server
-  - docker push entinelwawesh/multi-worker
+  - docker push sentinelwawesh/multi-client
+  - docker push sentinelwawesh/multi-nginx
+  - docker push sentinelwawesh/multi-server
+  - docker push sentinelwawesh/multi-worker
   
   
 
